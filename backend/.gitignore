@@ -7,3 +7,4 @@ dist
 *service-account*.json
 firebase-adminsdk*.json
 *.log
+lambda/
