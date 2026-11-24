@@ -20,7 +20,8 @@ export function getFirebaseApp(config: Config): App {
 }
 
 export function getDb(config: Config): Firestore {
-  const db = getFirestore(getFirebaseApp(config));
+  const dbId = config.firebase.databaseId;
+  const db = dbId ? getFirestore(getFirebaseApp(config), dbId) : getFirestore(getFirebaseApp(config));
   try {
     db.settings({ ignoreUndefinedProperties: true });
   } catch {

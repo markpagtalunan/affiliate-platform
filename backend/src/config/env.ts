@@ -18,7 +18,7 @@ export interface Config {
   trustProxy: boolean | number;
   tzOffsetMinutes: number;
   ipHashSalt: string;
-  firebase: { serviceAccountJson?: string; serviceAccountPath?: string };
+  firebase: { serviceAccountJson?: string; serviceAccountPath?: string; databaseId?: string };
 }
 
 const schema = z.object({
@@ -40,6 +40,7 @@ const schema = z.object({
   IP_HASH_SALT: z.string().optional(),
   FIREBASE_SERVICE_ACCOUNT: z.string().optional(),
   FIREBASE_SERVICE_ACCOUNT_PATH: z.string().optional(),
+  FIRESTORE_DATABASE_ID: z.string().optional(),
 });
 
 const blank = (v: string | undefined): string | undefined => (v && v.trim() ? v.trim() : undefined);
@@ -72,6 +73,6 @@ export function loadConfig(source: Record<string, string | undefined> = process.
     trustProxy,
     tzOffsetMinutes: e.TZ_OFFSET_MINUTES,
     ipHashSalt: e.IP_HASH_SALT ?? 'affiliate-platform',
-    firebase: { serviceAccountJson: blank(e.FIREBASE_SERVICE_ACCOUNT), serviceAccountPath: blank(e.FIREBASE_SERVICE_ACCOUNT_PATH) },
+    firebase: { serviceAccountJson: blank(e.FIREBASE_SERVICE_ACCOUNT), serviceAccountPath: blank(e.FIREBASE_SERVICE_ACCOUNT_PATH), databaseId: blank(e.FIRESTORE_DATABASE_ID) },
   };
 }
